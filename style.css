@@ -1,0 +1,44 @@
+*{
+    color: white;
+    background-color: black;
+    font-family: 'Comic Sans MS';
+
+    overflow-wrap:anywhere;
+
+    text-align: center;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body{
+    min-height: 100vh;
+    margin: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+  
+header{
+    min-height: 50px;
+}
+  
+footer{
+    min-height: 50px;
+}
+
+button{
+    width: 70px;
+    height: 70px;
+
+    background-color: lightgray;
+    border: 5% solid gray;
+    border-radius: 10px;
+    
+    color: black;
+
+    transition: scale 0.3s;
+}
+
+button:hover{
+    scale: 1.2;
+}
