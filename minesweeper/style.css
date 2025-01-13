@@ -1,0 +1,42 @@
+*{
+    color: white;
+    background-color: black;
+    font-family: 'Comic Sans MS';
+
+    overflow-wrap:anywhere;
+
+    text-align: center;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table{
+    width: 80vw;
+    height: 80vh;
+    border: 1px solid lightslategray;
+    border-radius: 5px;
+    background-color: gray;
+}
+
+td{
+    width: 5vh;
+    height: 5vh;
+    border: 1px solid #010203;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    opacity: 0;
+
+    aspect-ratio: 1/1;
+}
+
+.visible{
+    opacity: 1;
+    background-color: #111111;
+}

@@ -1,0 +1,8 @@
+- write the script for ending - analysis in comments
+- touch up frontend a bit
+- make the website a bit more responsive
+- make the fucking cells square
+- maybe add animations
+
+later gonna add timer and other bullshit like that
+if there are any bugs just write it down here: 
