@@ -14,13 +14,9 @@
 
 .white {
     background-color: white;
-    height: 100px;
-    width: 100px;
 }
 .black {
     background-color: black;
-    height: 100px;
-    width: 100px;
 }
 
 table, td, th {
@@ -44,132 +40,11 @@ table, td, th {
     width: 25px;
 }
 
-.white:hover {
+.field:hover {
     background-color: rgb(0, 255, 0);
 }
 
-.black:hover {
-    background-color: rgb(0, 255, 0);
-}
-
-#B1{
-    color: white;
-}
-
-#D1{
-    color: white;
-}
-
-#F1{
-    color: white;
-}
-
-#H1{
-    color: white;
-}
-
-#A2{
-    color: white;
-}
-
-#C2{
-    color: white;
-}
-
-#E2{
-    color: white;
-}
-
-#G2{
-    color: white;
-}
-
-#B3{
-    color: white;
-}
-
-#D3{
-    color: white;
-}
-
-#F3{
-    color: white;
-}
-
-#H3{
-    color: white;
-}
-
-#A4{
-    color: white;
-}
-
-#C4{
-    color: white;
-}
-
-#E4{
-    color: white;
-}
-
-#G4{
-    color: white;
-}
-
-#B5{
-    color: white;
-}
-
-#D5{
-    color: white;
-}
-
-#F5{
-    color: white;
-}
-
-#H5{
-    color: white;
-}
-
-#A6{
-    color: white;
-}
-
-#C6{
-    color: white;
-}
-
-#E6{
-    color: white;
-}
-
-#G6{
-    color: white;
-}
-
-#B7{color: white;}
-
-#D7{
-    color: white;
-}
-
-#F7{
-    color: white;
-}
-
-#H7{
-    color: white;
-}
-
-#A8{
-    color: white;
-}
-
-#E8{
-    color: white;
-}
-
-#G8{
-    color: white;
+.field {
+    height: 100px;
+    width: 100px;
 }
