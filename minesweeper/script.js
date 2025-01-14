@@ -1,8 +1,8 @@
 /*====================*/
 const tableWidth = 30;
 const tableHeight = 15;
-
 const bombAmountModifier = 0.25;
+
 const bombMarker = '💣';
 const safetyMarker = 'S';
 const flagMarker = '🚩';
@@ -111,10 +111,10 @@ function clickHandler(e){
             //placing safeties around the first click - guarantees a good spawning conditions
             for(let offsetY = -1; offsetY <= 1; offsetY++){
                 for (let offsetX = -1; offsetX <= 1; offsetX++){
-                    try {
+                    try{
                         matrix[y + offsetY][x + offsetX] = safetyMarker;
                     }
-                    catch (error){}
+                    catch(error){}
                 }
             }
             generateMap();
@@ -124,14 +124,16 @@ function clickHandler(e){
 
         emptyCheck(x, y);
         updateDisplay();
+        checkWin();
         return;
     }
     //middle/rightclick action
     toggleFlag(x, y);
+    checkWin();
 }
 
 function updateDisplay(){
-    display.innerHTML = `All bombs: ${bombAmount}`;
+    display.innerHTML = `All bombs: ${bombAmount} Flags: ${flagsOnField}/${bombAmount}`;
 }
 
 function emptyCheck(x, y){
@@ -142,13 +144,13 @@ function emptyCheck(x, y){
             if(!matrix[y + offsetY][x + offsetX] && !matrixToTable(x + offsetX, y + offsetY).classList.contains(visibleClass)){
                 revealCell(x + offsetX, y + offsetY);
                 emptyCheck(x + offsetX, y + offsetY);
-                debuggingRevealCell(x + offsetX, y + offsetY);
+                //debuggingRevealCell(x + offsetX, y + offsetY);
                 continue;
             }
             if(matrix[y][x]) continue;
             if(matrix[y + offsetY][x + offsetX] != bombMarker){
                 revealCell(x + offsetX, y + offsetY);
-                debuggingRevealCell(x + offsetX, y + offsetY);
+                //debuggingRevealCell(x + offsetX, y + offsetY);
             }
         }
     }
@@ -177,9 +179,9 @@ function makeAllSoftVisible(){
     console.log('Turned on soft visibility for all cells');
 }
 
-function debuggingRevealCell(x, y){
+/* function debuggingRevealCell(x, y){
     matrixToTable(x, y).style.borderColor = 'green';
-}
+} */
 
 function toggleFlag(x, y){
     let currentCell = matrixToTable(x, y);
@@ -198,13 +200,13 @@ function toggleFlag(x, y){
 }
 
 function checkWin(){
-    //write win condition
-    /*
-    //check amount of placed flags against bombs
-    //check placement of flags against placement of bombs
-    //limit amount of flags to the amount of bombs - basically prevents spamming the entire map in flags so its easier to compare it to the bomb placement
+    let visibleCells = 0;
 
-    //we can check the placements comparing either if each flag is on a bomb or checking if at least one flag is not on a bomb
-    
-    */
+    allCells.forEach(function(cell){
+        visibleCells += cell.classList.contains(visibleClass);
+    });
+
+    if(flagsOnField == bombAmount && visibleCells == allCells.length){
+        console.log('win');
+    }
 }
