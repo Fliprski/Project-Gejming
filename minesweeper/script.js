@@ -1,7 +1,7 @@
 /*====================*/
 const tableWidth = 30;
 const tableHeight = 15;
-const bombAmountModifier = 0.25;
+const bombAmountModifier = 0.25; //DO NOT GO ABOVE 0.96!!!
 
 const bombMarker = '💣';
 const safetyMarker = 'S';
@@ -144,13 +144,11 @@ function emptyCheck(x, y){
             if(!matrix[y + offsetY][x + offsetX] && !matrixToTable(x + offsetX, y + offsetY).classList.contains(visibleClass)){
                 revealCell(x + offsetX, y + offsetY);
                 emptyCheck(x + offsetX, y + offsetY);
-                //debuggingRevealCell(x + offsetX, y + offsetY);
                 continue;
             }
             if(matrix[y][x]) continue;
             if(matrix[y + offsetY][x + offsetX] != bombMarker){
                 revealCell(x + offsetX, y + offsetY);
-                //debuggingRevealCell(x + offsetX, y + offsetY);
             }
         }
     }
@@ -166,6 +164,7 @@ function endGame(){
     allCells.forEach((cell) => {
         if(matrix[cell.parentElement.rowIndex][cell.cellIndex] == bombMarker){
             revealCell(cell.cellIndex, cell.parentElement.rowIndex);
+            cell.innerHTML = matrix[cell.parentElement.rowIndex][cell.cellIndex];
         }
     });
 
@@ -178,10 +177,6 @@ function makeAllSoftVisible(){
     });
     console.log('Turned on soft visibility for all cells');
 }
-
-/* function debuggingRevealCell(x, y){
-    matrixToTable(x, y).style.borderColor = 'green';
-} */
 
 function toggleFlag(x, y){
     let currentCell = matrixToTable(x, y);
@@ -200,13 +195,15 @@ function toggleFlag(x, y){
 }
 
 function checkWin(){
-    let visibleCells = 0;
+    let visibleCells = true;
 
     allCells.forEach(function(cell){
-        visibleCells += cell.classList.contains(visibleClass);
+        visibleCells *= cell.classList.contains(visibleClass);
     });
 
-    if(flagsOnField == bombAmount && visibleCells == allCells.length){
+    if(flagsOnField == bombAmount && visibleCells){
         console.log('win');
+        display.innerHTML = `You Won! 🎉`;
+        gameEnded = true;
     }
 }

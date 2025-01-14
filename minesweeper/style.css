@@ -1,7 +1,7 @@
 *{
     color: white;
     background-color: black;
-    font-family: /* 'Comic Sans MS' */ Consolas;
+    font-family: Consolas;
 
     overflow-wrap:anywhere;
 
@@ -34,6 +34,8 @@ td{
     opacity: 0;
 
     aspect-ratio: 1/1;
+
+    color: #111111;
 }
 
 .visible{
