@@ -13,7 +13,6 @@ const visibleClass = 'visible';
 /*====================*/
 
 const bombAmount = Math.ceil((tableHeight * tableWidth) * bombAmountModifier);
-//console.log(bombAmount);
 
 let bombCount = 0;
 let flagsOnField = 0;
@@ -84,10 +83,7 @@ function generateMap(){
     allCells.forEach((cell) => {
         if(!matrix[cell.parentElement.rowIndex][cell.cellIndex]) return;
         cell.innerHTML = matrix[cell.parentElement.rowIndex][cell.cellIndex];
-        if(matrix[cell.parentElement.rowIndex][cell.cellIndex] == bombMarker){
-            //cell.style.color = 'red';
-            return;
-        }
+        if(matrix[cell.parentElement.rowIndex][cell.cellIndex] == bombMarker) return;
         cell.style.color = colors[matrix[cell.parentElement.rowIndex][cell.cellIndex]];
     });
 }
@@ -98,11 +94,13 @@ function matrixToTable(x, y){
 
 function clickHandler(e){
     if(gameEnded) return;
+    
     let x = e.target.cellIndex;
     let y = e.target.parentElement.rowIndex;
 
     //leftclick action
-    if(!e.button && !matrixToTable(x, y).classList.contains(visibleClass)){
+    if(!e.button){
+        if(matrixToTable(x, y).classList.contains(visibleClass)) return;
         if(matrix[y][x] == bombMarker){
             endGame();
             return;
@@ -123,7 +121,6 @@ function clickHandler(e){
         revealCell(x, y);
 
         emptyCheck(x, y);
-        updateDisplay();
         checkWin();
         return;
     }
@@ -164,7 +161,11 @@ function endGame(){
     allCells.forEach((cell) => {
         if(matrix[cell.parentElement.rowIndex][cell.cellIndex] == bombMarker){
             revealCell(cell.cellIndex, cell.parentElement.rowIndex);
-            cell.innerHTML = matrix[cell.parentElement.rowIndex][cell.cellIndex];
+            return;
+        }
+        if(matrixToTable(cell.cellIndex, cell.parentElement.rowIndex).innerHTML == flagMarker){
+            cell.style.color = 'red';
+            cell.innerHTML = 'X';
         }
     });
 
