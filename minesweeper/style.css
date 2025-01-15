@@ -45,10 +45,18 @@ td{
 
     opacity: 0;
 
-    color: #111111;
+    color: #222222;
 }
 
 .visible{
     opacity: 1;
+    background-color: #222222;
+}
+
+.bomb{
     background-color: #111111;
+}
+
+.flagBackground{
+    background-color: #010203;
 }

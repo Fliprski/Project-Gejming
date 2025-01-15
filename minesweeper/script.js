@@ -10,6 +10,7 @@ const flagMarker = '🚩';
 const colors = ['#000000', '#2cb000', '#00b049', '#00b09b', '#005bb0', '#6f00b0', '#b000b0', '#d16d02', '#d1ce02'];
 
 const visibleClass = 'visible';
+const flagClass = 'flagBackground';
 /*====================*/
 
 document.addEventListener('contextmenu', function (e){
@@ -82,6 +83,7 @@ function generateMap(){
         let y = Math.floor(Math.random() * tableHeight);
         if(matrix[y][x] == bombMarker || matrix[y][x] == safetyMarker) continue;
         matrix[y][x] = bombMarker;
+        matrixToTable(x, y).classList.add('bomb');
         bombCount++;
     }
 
@@ -185,15 +187,15 @@ function clickHandler(e){
 
 function toggleFlag(x, y){
     let currentCell = matrixToTable(x, y);
-    if(currentCell.innerHTML == flagMarker){
-        currentCell.classList.remove(visibleClass);
+    if(currentCell.classList.contains(flagClass)){
+        currentCell.classList.remove(visibleClass, flagClass);
         currentCell.innerHTML = matrix[y][x];
         flagsOnField--;
         updateDisplay();
         return;
     }
     if(currentCell.classList.contains(visibleClass) || !bombCount) return;
-    currentCell.classList.add(visibleClass);
+    currentCell.classList.add(visibleClass, flagClass);
     currentCell.innerHTML = flagMarker;
     flagsOnField++;
     updateDisplay();
@@ -209,7 +211,7 @@ function endGame(){
             revealCell(cell.cellIndex, cell.parentElement.rowIndex);
             return;
         }
-        if(matrixToTable(cell.cellIndex, cell.parentElement.rowIndex).innerHTML == flagMarker){
+        if(matrixToTable(cell.cellIndex, cell.parentElement.rowIndex).classList.contains(flagClass)){
             cell.style.color = 'red';
             cell.innerHTML = 'X';
         }
