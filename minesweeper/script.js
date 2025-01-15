@@ -33,10 +33,6 @@ const table = document.createElement('table');
 const display = document.querySelector('#display');
 const timer = document.querySelector('#timer');
 
-tableCreate();
-
-const allCells = table.querySelectorAll('td');
-
 function tableCreate(){
     for (let i = 0; i < tableHeight; i++){
         const tr = table.insertRow();
@@ -49,6 +45,34 @@ function tableCreate(){
         }
     }
     body.appendChild(table);
+}
+
+tableCreate();
+
+//============================================//
+const allCells = table.querySelectorAll('td');
+//============================================//
+
+function matrixToTable(x, y){
+    return allCells[y * tableWidth + x];
+}
+
+function updateDisplay(){
+    display.innerHTML = `All bombs: ${bombAmount} Flags: ${flagsOnField}/${bombAmount}`;
+}
+
+function revealCell(x, y){
+    matrixToTable(x, y).classList.add(visibleClass);
+}
+
+function formatTime(rawTime){
+    if(Math.floor(rawTime/6000)%60 < 1){
+        return `Time: ${Math.floor(rawTime/100)%60}.${Math.floor(rawTime%100)}`;
+    }
+    if(Math.floor(rawTime/100)%60 < 10){
+        return `Time: ${Math.floor(rawTime/6000)%60}:0${Math.floor(rawTime/100)%60}.${Math.floor(rawTime%100)}`;
+    }
+    return `Time: ${Math.floor(rawTime/6000)%60}:${Math.floor(rawTime/100)%60}.${Math.floor(rawTime%100)}`;
 }
 
 function generateMap(){
@@ -91,8 +115,22 @@ function generateMap(){
     });
 }
 
-function matrixToTable(x, y){
-    return allCells[y * tableWidth + x];
+function emptyCheck(x, y){
+    for(let offsetY = -1; offsetY <= 1; offsetY++){
+        for(let offsetX = -1; offsetX <= 1; offsetX++){
+            if(y + offsetY < 0 || y + offsetY >= tableHeight || x + offsetX < 0 || x + offsetX >= tableWidth) continue; //safety to not escape the matrix
+            //if clicking on number and number has empty next to it - grace check, if no empty - no grace check
+            if(!matrix[y + offsetY][x + offsetX] && !matrixToTable(x + offsetX, y + offsetY).classList.contains(visibleClass)){
+                revealCell(x + offsetX, y + offsetY);
+                emptyCheck(x + offsetX, y + offsetY);
+                continue;
+            }
+            if(matrix[y][x]) continue;
+            if(matrix[y + offsetY][x + offsetX] != bombMarker){
+                revealCell(x + offsetX, y + offsetY);
+            }
+        }
+    }
 }
 
 function clickHandler(e){
@@ -145,30 +183,20 @@ function clickHandler(e){
     checkWin();
 }
 
-function updateDisplay(){
-    display.innerHTML = `All bombs: ${bombAmount} Flags: ${flagsOnField}/${bombAmount}`;
-}
-
-function emptyCheck(x, y){
-    for(let offsetY = -1; offsetY <= 1; offsetY++){
-        for(let offsetX = -1; offsetX <= 1; offsetX++){
-            if(y + offsetY < 0 || y + offsetY >= tableHeight || x + offsetX < 0 || x + offsetX >= tableWidth) continue; //safety to not escape the matrix
-            //if clicking on number and number has empty next to it - grace check, if no empty - no grace check
-            if(!matrix[y + offsetY][x + offsetX] && !matrixToTable(x + offsetX, y + offsetY).classList.contains(visibleClass)){
-                revealCell(x + offsetX, y + offsetY);
-                emptyCheck(x + offsetX, y + offsetY);
-                continue;
-            }
-            if(matrix[y][x]) continue;
-            if(matrix[y + offsetY][x + offsetX] != bombMarker){
-                revealCell(x + offsetX, y + offsetY);
-            }
-        }
+function toggleFlag(x, y){
+    let currentCell = matrixToTable(x, y);
+    if(currentCell.innerHTML == flagMarker){
+        currentCell.classList.remove(visibleClass);
+        currentCell.innerHTML = matrix[y][x];
+        flagsOnField--;
+        updateDisplay();
+        return;
     }
-}
-
-function revealCell(x, y){
-    matrixToTable(x, y).classList.add(visibleClass);
+    if(currentCell.classList.contains(visibleClass) || !bombCount) return;
+    currentCell.classList.add(visibleClass);
+    currentCell.innerHTML = flagMarker;
+    flagsOnField++;
+    updateDisplay();
 }
 
 function endGame(){
@@ -190,29 +218,6 @@ function endGame(){
     display.innerHTML = `GAME OVER :\(`;
 }
 
-function makeAllSoftVisible(){
-    allCells.forEach(function(cell){
-        cell.style.opacity = 1;
-    });
-    console.log('Turned on soft visibility for all cells');
-}
-
-function toggleFlag(x, y){
-    let currentCell = matrixToTable(x, y);
-    if(currentCell.innerHTML == flagMarker){
-        currentCell.classList.remove(visibleClass);
-        currentCell.innerHTML = matrix[y][x];
-        flagsOnField--;
-        updateDisplay();
-        return;
-    }
-    if(currentCell.classList.contains(visibleClass) || !bombCount) return;
-    currentCell.classList.add(visibleClass);
-    currentCell.innerHTML = flagMarker;
-    flagsOnField++;
-    updateDisplay();
-}
-
 function checkWin(){
     let visibleCells = true;
 
@@ -227,12 +232,12 @@ function checkWin(){
     }
 }
 
-function formatTime(rawTime){
-    if(Math.floor(rawTime/6000)%60 < 1){
-        return `Time: ${Math.floor(rawTime/100)%60}.${Math.floor(rawTime%100)}`;
-    }
-    if(Math.floor(rawTime/100)%60 < 10){
-        return `Time: ${Math.floor(rawTime/6000)%60}:0${Math.floor(rawTime/100)%60}.${Math.floor(rawTime%100)}`;
-    }
-    return `Time: ${Math.floor(rawTime/6000)%60}:${Math.floor(rawTime/100)%60}.${Math.floor(rawTime%100)}`;
+/*
+//Debugging function - reveals all cells without assigning visible class
+function makeAllSoftVisible(){
+    allCells.forEach(function(cell){
+        cell.style.opacity = 1;
+    });
+    console.log('Turned on soft visibility for all cells');
 }
+*/
