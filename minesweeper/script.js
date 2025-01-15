@@ -12,11 +12,17 @@ const colors = ['#000000', '#2cb000', '#00b049', '#00b09b', '#005bb0', '#6f00b0'
 const visibleClass = 'visible';
 /*====================*/
 
+document.addEventListener('contextmenu', function (e){
+    e.preventDefault();
+}, false);
+
 const bombAmount = Math.ceil((tableHeight * tableWidth) * bombAmountModifier);
 
 let bombCount = 0;
 let flagsOnField = 0;
 let gameEnded = false;
+
+let timerInterval;
 
 let matrix = [];
 
@@ -25,10 +31,7 @@ let cellCount = 0;
 const body = document.body;
 const table = document.createElement('table');
 const display = document.querySelector('#display');
-
-document.addEventListener('contextmenu', function (e){
-    e.preventDefault();
-}, false);
+const timer = document.querySelector('#timer');
 
 tableCreate();
 
@@ -116,6 +119,19 @@ function clickHandler(e){
                 }
             }
             generateMap();
+            updateDisplay();
+
+            //start the timer after the first click
+            let gameStart = Date.now();
+            timerInterval = setInterval(() => {
+                let timePassed = Math.floor((Date.now() - gameStart)/10);
+                timer.innerHTML = formatTime(timePassed);
+                if(Math.floor(timePassed/6000) >= 60){
+                    timeDisplay.innerHTML = "skill issue";
+                    clearInterval(timerInterval);
+                    return;
+                }
+            }, 10);
         }
 
         revealCell(x, y);
@@ -157,6 +173,8 @@ function revealCell(x, y){
 
 function endGame(){
     gameEnded = true;
+    clearInterval(timerInterval);
+    timer.innerHTML = '';
 
     allCells.forEach((cell) => {
         if(matrix[cell.parentElement.rowIndex][cell.cellIndex] == bombMarker){
@@ -203,8 +221,18 @@ function checkWin(){
     });
 
     if(flagsOnField == bombAmount && visibleCells){
-        console.log('win');
         display.innerHTML = `You Won! 🎉`;
+        clearInterval(timerInterval);
         gameEnded = true;
     }
+}
+
+function formatTime(rawTime){
+    if(Math.floor(rawTime/6000)%60 < 1){
+        return `Time: ${Math.floor(rawTime/100)%60}.${Math.floor(rawTime%100)}`;
+    }
+    if(Math.floor(rawTime/100)%60 < 10){
+        return `Time: ${Math.floor(rawTime/6000)%60}:0${Math.floor(rawTime/100)%60}.${Math.floor(rawTime%100)}`;
+    }
+    return `Time: ${Math.floor(rawTime/6000)%60}:${Math.floor(rawTime/100)%60}.${Math.floor(rawTime%100)}`;
 }

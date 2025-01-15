@@ -11,6 +11,10 @@
     margin-right: auto;
 }
 
+p{
+    display: inline;
+}
+
 table{
     width: 80vw;
     height: 80vh;
@@ -20,7 +24,7 @@ table{
 }
 
 td{
-    width: 5vh;
+    width: 5vw;
     height: 5vh;
     border: 1px solid #010203;
 
@@ -32,8 +36,6 @@ td{
     user-select: none;
 
     opacity: 0;
-
-    aspect-ratio: 1/1;
 
     color: #111111;
 }
