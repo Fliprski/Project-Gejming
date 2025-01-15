@@ -21,13 +21,16 @@ table{
     border: 1px solid lightslategray;
     border-radius: 5px;
     background-color: gray;
+
+    table-layout: fixed;
 }
 
 td{
-    width: 5vw;
-    height: 5vh;
+    width: 2vw;
+    height: 2vh;
     border: 1px solid #010203;
 
+    /*prevents users selecting text inside the cells*/
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
