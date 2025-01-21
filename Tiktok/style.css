@@ -1,0 +1,37 @@
+body{
+    text-align: center;
+    font-family: "Comic Sans MS";
+    background-color: rgb(21, 25, 77);
+    color: white;
+}
+header{
+    font-size: 3vw;
+}
+
+table{
+    border-width: 1vw;
+    border-color: white;
+    border-style: solid;
+    margin: auto;
+    border-collapse: collapse;
+    width: 40vw;
+    height: 40vw;
+    aspect-ratio: 1;
+    table-layout: fixed;
+}
+td{
+    border-color: white;
+    border-style: solid;
+    border-width: 1vw;
+    height: 15vw;
+    width: 15vw;
+    font-size: 9vw;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+
+}
