@@ -1,5 +1,4 @@
 const pole = document.querySelectorAll("td");
-const reset = document.querySelector("reset");
 
 let round = false;
 
@@ -17,10 +16,5 @@ function clickHandler(event){
     event.target.innerHTML = 'X';
 }
 
-reset.forEach(function(reset2){
-    reset2.addEventListener('mousedown', ResetFunc);
-});
 
-function ResetFunc(td){
-    td.target.innerHTML = '';
-}
+
