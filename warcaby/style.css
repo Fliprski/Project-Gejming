@@ -48,3 +48,25 @@ table, td, th {
     height: 100px;
     width: 100px;
 }
+
+#turnButton {
+    height: 100px;
+    width: 150px;
+    float: left;
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#turn {
+    font-size: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+}
+
+#turnDiv {
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+}
