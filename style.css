@@ -1,12 +1,11 @@
 *{
     color: white;
-    background-color: black;
+    
     font-family: 'Comic Sans MS';
 
     overflow-wrap:anywhere;
 
     text-align: center;
-    max-width: fit-content;
     margin-left: auto;
     margin-right: auto;
 }
@@ -16,6 +15,11 @@ body{
     margin: 0;
     display: grid;
     grid-template-rows: auto 1fr auto;
+    background: linear-gradient(rgba(0, 0, 0, 0.8), 
+    rgba(0, 0, 0, 0.8)), url('gierek.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
 }
   
 header{
@@ -27,8 +31,8 @@ footer{
 }
 
 button{
-    width: 70px;
-    height: 70px;
+    width: 200px;
+    height: 60px;
 
     background-color: lightgray;
     border: 5% solid gray;
@@ -37,8 +41,29 @@ button{
     color: black;
 
     transition: scale 0.3s;
+    font-size: 20px;
 }
 
 button:hover{
     scale: 1.2;
+    border: 10% solid gray;
+    animation-name: rgb;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
 }
+
+@keyframes rgb {
+    0%   {border-color:red;}
+  10%  {border-color:orangered;}
+  20%  {border-color:orange;}
+  30%  {border-color:yellow;}
+  40% {border-color:greenyellow;}
+  50% {border-color: aqua;}
+  60% {border-color: #008cff;}
+  70% {border-color: blue;}
+  80% {border-color: blueviolet;}
+  90% {border-color: magenta;}
+  100% {border-color: red;}
+}
+
