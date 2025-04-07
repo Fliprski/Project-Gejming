@@ -1,14 +1,31 @@
-body{
+body {
     text-align: center;
     font-family: "Comic Sans MS";
-    background-color: rgb(21, 25, 77);
+    background-color: #15194d;
     color: white;
 }
-header{
+
+header {
     font-size: 3vw;
 }
 
-table{
+#game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#scoreboard {
+    text-align: left;
+    font-size: 1.5rem;
+    background-color: #1f1f3c;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+table {
     border-width: 1vw;
     border-color: white;
     border-style: solid;
@@ -19,7 +36,8 @@ table{
     aspect-ratio: 1;
     table-layout: fixed;
 }
-td{
+
+td {
     border-color: white;
     border-style: solid;
     border-width: 1vw;
@@ -33,5 +51,30 @@ td{
     -ms-user-select: none;
     user-select: none;
     cursor: pointer;
+}
 
+td:hover {
+    background-color: #212778;
+    color: black;
+}
+
+button#reset {
+    background-color: #0c0c55; 
+    color: white; 
+    border: none; 
+    border-radius: 10px; 
+    padding: 10px 20px; 
+    font-size: 1.5rem; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button#reset:hover {
+    background-color: #15194d; 
+    transform: scale(1.1); 
+}
+
+button#reset:active {
+    background-color: #15194d;
+    transform: scale(1); 
 }

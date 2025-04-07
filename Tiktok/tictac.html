@@ -10,26 +10,33 @@
 <body>
     <header><h1>Tic Tac Toe</h1></header>
     <main>
-        <table>
-            <tr id="A">
-              <td id="A1"></td>
-              <td id="A2"></td>
-              <td id="A3"></td>
-            </tr>
-            <tr id="B">
-              <td id="B1"></td>
-              <td id="B2"></td>
-              <td id="B3"></td>
-            </tr>
-            <tr id="C">
-              <td id="C1"></td>
-              <td id="C2"></td>
-              <td id="C3"></td>
-            </tr>
-          </table><br />
-          <button onClick="window.location.reload();">Reset</button>
+        <div id="status">Ruch gracza: X</div><br>
+        <div id="game-container">
+            <div id="scoreboard">
+                <p>Gracz X: <span id="scoreX">0</span></p>
+                <p>Gracz O: <span id="scoreO">0</span></p>
+            </div>
+            <table>
+                <tr id="A">
+                  <td id="A1"></td>
+                  <td id="A2"></td>
+                  <td id="A3"></td>
+                </tr>
+                <tr id="B">
+                  <td id="B1"></td>
+                  <td id="B2"></td>
+                  <td id="B3"></td>
+                </tr>
+                <tr id="C">
+                  <td id="C1"></td>
+                  <td id="C2"></td>
+                  <td id="C3"></td>
+                </tr>
+            </table>
+        </div>
+        <br />
+        <button id="reset" onClick="window.location.reload();">Reset</button>
     </main>
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
-
 </html>
