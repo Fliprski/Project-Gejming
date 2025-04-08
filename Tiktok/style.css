@@ -78,3 +78,24 @@ button#reset:active {
     background-color: #15194d;
     transform: scale(1); 
 }
+
+button#return {
+    background-color: #0c0c55; 
+    color: white; 
+    border: none; 
+    border-radius: 10px; 
+    padding: 10px 20px; 
+    font-size: 1.5rem; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button#return:hover {
+    background-color: #15194d; 
+    transform: scale(1.1); 
+}
+
+button#return:active {
+    background-color: #15194d;
+    transform: scale(1); 
+}
