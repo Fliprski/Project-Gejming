@@ -126,3 +126,7 @@ table, td, th {
 .mark{
     background-color: #8ACE00;
 }
+
+h1, p{
+    color: white;
+}
