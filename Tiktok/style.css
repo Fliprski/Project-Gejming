@@ -1,12 +1,22 @@
-body {
+* {
+    font-family: 'Comic Sans MS';
+    overflow-wrap:anywhere;
     text-align: center;
-    font-family: "Comic Sans MS";
-    background-color: #15194d;
-    color: white;
 }
 
-header {
-    font-size: 3vw;
+body{
+    min-height: 100vh;
+    margin: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background: linear-gradient(rgba(0, 0, 0, 0.8), 
+    rgba(0, 0, 0, 0.8)), url('../gierek.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    color: white;
 }
 
 #game-container {
@@ -17,33 +27,45 @@ header {
 }
 
 #scoreboard {
-    text-align: left;
-    font-size: 1.5rem;
-    background-color: #1f1f3c;
-    padding: 10px;
+    width: 300px;
+    background-color: lightgray;
+    border: 5% solid gray;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    
+    color: black;
+
+    font-size: 30px;
+
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: auto;
+    margin-top: 30%;
+    animation-name: rgb;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
 }
 
 table {
-    border-width: 1vw;
-    border-color: white;
-    border-style: solid;
     margin: auto;
     border-collapse: collapse;
-    width: 40vw;
-    height: 40vw;
+    width: 33vw;
+    height: 33vw;
     aspect-ratio: 1;
     table-layout: fixed;
+    float: left;
+}
+
+#status {
+    font-size: 1vw;
 }
 
 td {
-    border-color: white;
-    border-style: solid;
-    border-width: 1vw;
-    height: 15vw;
-    width: 15vw;
-    font-size: 9vw;
+    height: 11vw;
+    width: 11vw;
+    font-size: 7vw;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -54,48 +76,145 @@ td {
 }
 
 td:hover {
-    background-color: #212778;
+    background-color: #5c5c5c;
     color: black;
 }
 
 button#reset {
-    background-color: #0c0c55; 
-    color: white; 
-    border: none; 
-    border-radius: 10px; 
-    padding: 10px 20px; 
-    font-size: 1.5rem; 
-    cursor: pointer; 
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    min-width: 200px;
+    height: 60px;
+
+    background-color: lightgray;
+    border: 5% solid gray;
+    border-radius: 10px;
+    
+    color: black;
+
+    transition: scale 0.3s;
+    font-size: 20px;
 }
 
 button#reset:hover {
-    background-color: #15194d; 
-    transform: scale(1.1); 
+    scale: 1.2;
+    border: 10% solid gray;
+    animation-name: rgb;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both; 
 }
 
 button#reset:active {
-    background-color: #15194d;
-    transform: scale(1); 
+    scale: 1.2;
+    border: 10% solid gray;
+    animation-name: rgb;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both; 
 }
 
 button#return {
-    background-color: #0c0c55; 
-    color: white; 
-    border: none; 
-    border-radius: 10px; 
-    padding: 10px 20px; 
-    font-size: 1.5rem; 
-    cursor: pointer; 
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    min-width: 200px;
+    height: 60px;
+
+    background-color: lightgray;
+    border: 5% solid gray;
+    border-radius: 10px;
+    
+    color: black;
+
+    transition: scale 0.3s;
+    font-size: 20px;
 }
 
 button#return:hover {
-    background-color: #15194d; 
-    transform: scale(1.1); 
+    scale: 1.2;
+    border: 10% solid gray;
+    animation-name: rgb;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both; 
 }
 
 button#return:active {
-    background-color: #15194d;
-    transform: scale(1); 
+    scale: 1.2;
+    border: 10% solid gray;
+    animation-name: rgb;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both; 
+}
+
+#buttons {
+    color: transparent;
+}
+
+#left, #right {
+    width: 33%;
+    float: left;
+    padding: auto;
+    text-align: center;
+}
+#mid {
+    width: 34%;
+    float: left;
+    padding: auto;
+    padding-bottom: 50px;
+}
+
+h1 {
+    font-size: 2vw;
+}
+
+#A1 {
+    border-right: white solid 1vw;
+    border-bottom: white solid 1vw;
+}
+#A2 {
+    border-right: white solid 1vw;
+    border-bottom: white solid 1vw;
+    border-left: white solid 1vw;
+}
+#A3 {
+    border-bottom: white solid 1vw;
+    border-left: white solid 1vw;
+}
+#B1 {
+    border-right: white solid 1vw;
+    border-top: white solid 1vw;
+    border-bottom: white solid 1vw;
+}
+#B2 {
+    border: white solid 1vw;
+}
+#B3 {
+    border-left: white solid 1vw;
+    border-top: white solid 1vw;
+    border-bottom: white solid 1vw;
+}
+#C1 {
+    border-right: white solid 1vw;
+    border-top: white solid 1vw;
+}
+#C2 {
+    border-left: white solid 1vw;
+    border-right: white solid 1vw;
+    border-top: white solid 1vw;
+}
+#C3 {
+    border-left: white solid 1vw;
+    border-top: white solid 1vw;
+}
+
+@keyframes rgb {
+    0%   {border-color:red;}
+  10%  {border-color:orangered;}
+  20%  {border-color:orange;}
+  30%  {border-color:yellow;}
+  40% {border-color:greenyellow;}
+  50% {border-color: aqua;}
+  60% {border-color: #008cff;}
+  70% {border-color: blue;}
+  80% {border-color: blueviolet;}
+  90% {border-color: magenta;}
+  100% {border-color: red;}
 }

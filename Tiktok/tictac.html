@@ -8,14 +8,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header><h1>Tic Tac Toe</h1></header>
+    <h1><img src="tictactoe.gif"></h1>
+    <div>
+      <button id="reset" onClick="window.location.reload();">Reset</button>
+      <a id="buttons">---</a>
+      <a href="../index.html"><button id="return">Wróć do strony głównej</button></a>
+      </div>
+      <div id="status">Ruch gracza: X</div>
     <main>
-        <div id="status">Ruch gracza: X</div><br>
-        <div id="game-container">
+      <br>
+          <div id="left">
             <div id="scoreboard">
                 <p>Gracz X: <span id="scoreX">0</span></p>
                 <p>Gracz O: <span id="scoreO">0</span></p>
             </div>
+            <br>
+            
+            </div>
+            <div id="mid">
             <table>
                 <tr id="A">
                   <td id="A1"></td>
@@ -33,10 +43,7 @@
                   <td id="C3"></td>
                 </tr>
             </table>
-        </div>
-        <br />
-        <button id="reset" onClick="window.location.reload();">Reset</button>
-        <a href="../index.html"><button id="return">Wróć do strony głównej</button></a>
+          </div>
     </main>
     <script src="script.js"></script>
 </body>
