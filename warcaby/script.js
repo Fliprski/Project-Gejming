@@ -1,90 +1,163 @@
 const blackfig = '<img src=\"blackfig.png\">';
 const whitefig = '<img src=\"whitefig.png\">';
 
-const cells = document.querySelectorAll(".field");
+let antiFig = blackfig;
 
-//console.log(cells, cells[0]);
+function currentFig(){
+    if(antiFig == whitefig){
+        return blackfig;
+    }
+    return whitefig;
+}
+
+const markedClass = 'mark';
+
+const turnText = document.getElementById("turn");
+
+const cells = document.querySelectorAll(".field");
 
 cells.forEach(function(cell){
     cell.addEventListener("click", selectCell);
 });
 
-let whosTurn = true;
-let turnText = document.getElementById("turn");
-let turnColor = "Ruch białych";
+let matrix = [];
 
-let idString;
+for(let i = 0; i < 8; i++){
+    matrix[i] = [];
+    for(let j = 0; j < 8; j++){
+        matrix[i][j] = cells[(8 * i + j)];
+    }
+}
 
-let start;
-let destination;
-let possibleDestination1;
-let possibleDestination2;
+let originY = 0;
+let originX = 1;
 
-let selected = false;
+let checksOnBoard = 0;
+let capture = false;
+
+let checkBlack = 12;
+let checkWhite = 12;
 
 function switchTurn(){
-    whosTurn = !whosTurn;
-    console.log(whosTurn);
-
-    if(whosTurn ==  true) {
-        turnColor = "Ruch białych";
-        turnText.innerHTML = turnColor;
+    if(antiFig == whitefig){
+        antiFig = blackfig;
+        turnText.innerHTML = "Ruch białych";
         return;
     }
-    turnColor = "Ruch czarnych";
-    turnText.innerHTML = turnColor;
-
-    selected = false;
+    antiFig = whitefig;
+    turnText.innerHTML = "Ruch czarnuch";
 }
 
-function selectCell(e) {
-    if(e.currentTarget.innerHTML == blackfig) {
-        if(whosTurn == true) {
-            alert("Ruch białych!");
-        }
-        else {
-            e.currentTarget.style.backgroundColor = "#00FF00";
+function selectCell(e){
 
-            convertCell(e);
-      
-            selected = true;
-        }
+    if(e.currentTarget.innerHTML == antiFig){
+        alert("Nie twój ruch!");
+        return;
     }
-    else if(e.currentTarget.innerHTML == whitefig) {
-        if(whosTurn == false) {
-            alert("Ruch czarnych!");
-        }
-        else {
-            e.currentTarget.style.backgroundColor = "#00FF00";
 
-            let y = e.target.parentElement.parentElement.rowIndex - 1;
-            let x = e.target.parentElement.cellIndex - 1;
-
-            move(convertCell(x, y));
-
-            selected = true;
-        }
-    }else if(!selected){
+    if(e.currentTarget.innerHTML == '' && !e.currentTarget.classList.contains(markedClass)){
         alert("Na tym polu nie ma pionka!");
+        return;
     }
-   console.log(e.currentTarget.innerHTML);
-}
 
-function convertCell(x, y){
-    return (8 * y + x);
-}
+    e.currentTarget.style.backgroundColor = "#00dd00";
 
-function move(perfectCell){
-    for(let i = -1; i <= 1; i++){
-        if(i == 0) continue;
-        for(let j = -1; j <= 1; j++){
-            if(j == 0) continue;
-            console.log(i, j);
-            /* let subjectCell = perfectCell + convertCell(j, i);
-            console.log(subjectCell, i, j, perfectCell);
-            if(cells[subjectCell].innerHTML == ''){
-                cells[subjectCell].style.backgroundColor = '#69B00B'
-            } */
+    matrix[originY][originX].style.backgroundColor = '';
+
+    if(e.currentTarget.classList.contains(markedClass)){
+        move(originX, originY, e.currentTarget);
+
+        originY = e.currentTarget.parentElement.rowIndex - 1;
+        originX = e.currentTarget.cellIndex - 1;
+
+        clearMarks(originX, originY);
+        moveCheck(originX, originY);
+
+        if(!capture){
+            clearMarks();
+            if(!checksOnBoard){
+                switchTurn();
+                return;
+            }
         }
+
+        if(!checksOnBoard){
+            switchTurn();
+            return;
+        }
+
+        return;
+    }
+
+    originY = e.currentTarget.parentElement.rowIndex - 1;
+    originX = e.currentTarget.cellIndex - 1;
+
+    clearMarks(originX, originY);
+    moveCheck(originX, originY);
+}
+
+function moveCheck(x, y){
+    for(let offsetY = -1; offsetY <= 1; offsetY++){
+        if(offsetY == 0) continue;
+        if(!matrix[y + offsetY]) continue; //safety for out of bounds
+        for(let offsetX = -1; offsetX <= 1; offsetX++){
+            if(offsetX == 0) continue;
+            if(!matrix[y + offsetY][x + offsetX]) continue; //safety for out of bounds
+
+            if(matrix[y + offsetY][x + offsetX].innerHTML == '' && !matrix[y][x].classList.contains(markedClass)){
+                matrix[y + offsetY][x + offsetX].classList.add(markedClass);
+                checksOnBoard++;
+                continue;
+            }
+
+            if(matrix[y + offsetY][x + offsetX].innerHTML == antiFig){
+                if(!matrix[y + offsetY * 2]) continue; //safety for out of bounds
+                if(!matrix[y + offsetY * 2][x + offsetX * 2] || matrix[y + offsetY * 2][x + offsetX * 2].innerHTML != '') continue;
+
+                matrix[y + offsetY * 2][x + offsetX * 2].classList.add(markedClass);
+                checksOnBoard++;
+            }
+        }
+    }
+}
+
+function move(x, y, moveToCell){
+    capture = false;
+    let currentX = moveToCell.cellIndex - 1;
+    let currentY = moveToCell.parentElement.rowIndex - 1;
+
+    if(Math.abs(x - currentX) > 1){
+        let captureX = (x + currentX)/2;
+        let captureY = (y + currentY)/2;
+
+        matrix[captureY][captureX].innerHTML = '';
+        capture = true;
+
+        checkWin();
+    }
+    matrix[y][x].innerHTML = '';
+    matrix[currentY][currentX].innerHTML = currentFig();
+}
+
+function clearMarks(x, y){
+    checksOnBoard = 0;
+    for(let i = 0; i < matrix.length; i++){
+        for(let j = 0; j < matrix[i].length; j++){
+            if(x == j && y == i) continue;
+            matrix[i][j].classList.remove(markedClass);
+        }
+    }
+}
+
+function checkWin(){
+    if(antiFig == whitefig) checkWhite--;
+    if(antiFig == blackfig) checkBlack--;
+
+    if(checkWhite == 0){
+        alert("Wygrywa czarny!");
+    }
+
+    if(checkBlack == 0){
+        alert("Wygrywa biały!");
     }
 }
