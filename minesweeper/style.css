@@ -3,8 +3,6 @@
     background-color: black;
     font-family: 'Comic Sans MS';
 
-    
-
     text-align: center;
     
     margin-left: auto;
@@ -79,8 +77,8 @@ td{
 }
 
 button{
-    min-width: 200px;
-    height: 60px;
+    min-width: 100px;
+    height: 30px;
 
     background-color: lightgray;
     border: 5% solid gray;
@@ -89,7 +87,7 @@ button{
     color: black;
 
     transition: scale 0.3s;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 button:hover{
